@@ -1,15 +1,7 @@
 ---
-- hosts: switches
-  become: yes
-  gather_facts: no 
-  remote_user: coe
-  become_user: coe
+- hosts: switches 
+  gather_facts: no  
 
-  vars: # for execution environment
-    ansible_connection: ansible.netcommon.network_cli
-    ansible_network_os: cisco.ios.ios
-    ansible_become_method: enable
-    ansible_become_password: "cisco123"
     
   tasks:
     - name: Run show version on remote devices
