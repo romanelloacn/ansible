@@ -2,6 +2,9 @@
 - hosts: switches 
   gather_facts: no  
 
+  vars: # for execution environment
+    ansible_connection: ansible.netcommon.network_cli
+    ansible_network_os: cisco.ios.ios 
     
   tasks:
     - name: Run show version on remote devices
