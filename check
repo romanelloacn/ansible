@@ -1,0 +1,7 @@
+---
+- hosts: 8.8.8.8
+  gather_facts: no
+
+  tasks:
+    - name: Wait for connection to net1
+      wait_for_connection:
