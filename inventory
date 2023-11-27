@@ -2,3 +2,6 @@
 
 [switches]
 192.168.0.80
+
+[switches:vars]
+ansible_password=ciao123
