@@ -1,5 +1,5 @@
 ---
-- hosts: 8.8.8.8
+- hosts: all
   gather_facts: no
 
   tasks:
