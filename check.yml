@@ -1,5 +1,5 @@
 ---
-- hosts: all
+- hosts: switches
   gather_facts: no
 
   vars: # for execution environment
