@@ -5,11 +5,11 @@
   vars: # for execution environment
     ansible_connection: ansible.netcommon.network_cli
     ansible_network_os: cisco.ios.ios 
-    #ansible_user: coe
-    #ansible_ssh_pass: cisco123
-    #ansible_become: yes
-    #ansible_become_method: enable
-    #ansible_become_password: cisco123
+    ansible_user: '{{ rhsm_username }}'
+    ansible_ssh_pass: '{{ rhsm_password }}'
+    ansible_become: yes
+    ansible_become_method: enable
+    ansible_become_password: '{{ rhsm_password }}'
     
   tasks:
     - name: Run show version on remote devices
