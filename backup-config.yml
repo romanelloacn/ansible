@@ -28,9 +28,10 @@
       meta: end_host
       when: reg_show_ver is not defined or reg_show_ver.failed 
 
-    - debug:
-      msg:
-        - "{{ reg_show_ver.stdout_lines|join('\\n') }}" 
+    - name: Output
+      debug:
+        msg:
+          - "{{ reg_show_ver.stdout_lines|join('\\n') }}" 
 
     # BLOCK
     #ignore_errors: true
