@@ -26,28 +26,12 @@
       
     - name: F*cking Meta
       meta: end_host
-      when: reg_show_ver is not defined or reg_show_ver.failed
-
-    ##############################################################################################
-    - name: IOS CONFIG COMMANDS
-    ##############################################################################################
-      vars:
-        config_commands_str: |-
-          show inventory
-          show running-config
-      cisco.ios.ios_command:
-        commands: 
-          - "{{ item }}"
-        retries: 1
-      register: reg_config_commands
-      with_items: "{{ config_commands_str | split('\n') | select()| list }}"
-      ignore_errors: no  
- 
+      when: reg_show_ver is not defined or reg_show_ver.failed+
+      
     - name: Output
       debug:
         msg:
-          - "{{ reg_show_ver.stdout[0] }}" 
-          - "{{ reg_config_commands.results |join('\n') }}" 
+          - "{{ reg_show_ver.stdout[0] |join('\\n')}}" 
 
     # BLOCK
     #ignore_errors: true
