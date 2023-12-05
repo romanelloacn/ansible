@@ -13,25 +13,26 @@
     ansible_become_password: '{{ rhsm_password }}'
 
   tasks:
-    ##############################################################################################
-    - name: IOS SHOW VERSION (first)
-    ##############################################################################################
-      cisco.ios.ios_command:
-        commands: 
-          - show run
-        retries: 1
-      register: reg_show_ver
-      timeout: 10
-      ignore_errors: yes
-      
-    - name: F*cking Meta
-      meta: end_host
-      when: reg_show_ver is not defined or reg_show_ver.failed 
+    - block:
+      ##############################################################################################
+      - name: IOS SHOW VERSION (first)
+      ##############################################################################################
+        cisco.ios.ios_command:
+          commands: 
+            - show run
+          retries: 1
+        register: reg_show_ver
+        timeout: 10
+        ignore_errors: yes
+        
+      - name: F*cking Meta
+        meta: end_host
+        when: reg_show_ver is not defined or reg_show_ver.failed 
 
-    - name: Output format
-      vars:
-        shrunOutput: "{{ reg_show_ver.stdout_lines|join('\\n') }}" 
+      - name: Output format
+        vars:
+          shrunOutput: "{{ reg_show_ver.stdout_lines|join('\\n') }}" 
 
-    - name: Print Output
-      debug: 
-          msg: "{% for item in shrunOutput %}{{ item + '\n'}}{% endfor %}"
+      - name: Print Output
+        debug: 
+            msg: "{% for item in shrunOutput %}{{ item + '\n'}}{% endfor %}"
