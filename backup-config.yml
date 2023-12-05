@@ -43,11 +43,11 @@
       with_items: "{{ config_commands_str | split('\n') | select()| list }}"
       ignore_errors: no  
  
-
-    - debug:
-      msg:
-        - "{{ reg_show_ver.stdout_lines|join('\n') }}" 
-        - "{{ reg_config_commands.stdout_lines|join('\n') }}" 
+    - name: Output
+      debug:
+        msg:
+          - "{{ reg_show_ver.stdout_lines|join('\n') }}" 
+          - "{{ reg_config_commands.stdout_lines|join('\n') }}" 
 
     # BLOCK
     #ignore_errors: true
