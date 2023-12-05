@@ -46,8 +46,8 @@
     - name: Output
       debug:
         msg:
-          - "{{ reg_show_ver.stdout[0]|join('\n') }}" 
-          - "{{ reg_config_commands.results  }}" 
+          - "{{ reg_show_ver.stdout[0] }}" 
+          - "{{ reg_config_commands.results |join('\n') }}" 
 
     # BLOCK
     #ignore_errors: true
