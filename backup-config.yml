@@ -31,11 +31,10 @@
     - name: Output format
       vars:
         shrunOutput: "{{ reg_show_ver.stdout_lines|join('\\n') }}" 
-
-  tasks:
     - name: Print Output
       debug: 
-        msg: "{% for item in shrunOutput %}{{ item + '\n'}}{% endfor %}"
+          msg: "{% for item in shrunOutput %}{{ item + '\n'}}{% endfor %}"
+      
 
 
     # BLOCK
