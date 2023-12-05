@@ -42,20 +42,6 @@
       register: reg_config_commands
       with_items: "{{ config_commands_str | split('\n') | select()| list }}"
       ignore_errors: no
-  
-    - debug: msg="{{ |-
-          !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-          !!! Executing ios command: show version
-          !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-          {{ reg_show_ver.stdout[0] }}
-          {% for res in reg_config_commands.results %}
-          {% if res.stdout is defined %}
-          !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-          !!! Executing ios command: {{ res.item }}
-          !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-          {{ res.stdout.0 }}
-          {% endif  %}
-          {% endfor  %} }}"
  
     - name: IOS COMPOSE _result
       become: no
