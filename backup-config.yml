@@ -41,27 +41,67 @@
         retries: 1
       register: reg_config_commands
       with_items: "{{ config_commands_str | split('\n') | select()| list }}"
-      ignore_errors: no
+      ignore_errors: no  
  
-    - name: IOS COMPOSE _result
-      become: no
-      set_fact: 
-        connection: none
-        _result: |-
-          !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-          !!! Executing ios command: show version
-          !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-          {{ reg_show_ver.stdout[0] }}
-          {% for res in reg_config_commands.results %}
-          {% if res.stdout is defined %}
-          !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-          !!! Executing ios command: {{ res.item }}
-          !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-          {{ res.stdout.0 }}
-          {% endif  %}
-          {% endfor  %}
 
-    - debug: msg="{{ _result }}"
+    - debug:
+      msg:
+        - "{{ reg_show_ver.stdout_lines|join('\n') }}" 
+        - "{{ reg_config_commands.stdout_lines|join('\n') }}" 
+
+    # BLOCK
+    #ignore_errors: true
+  #BLOCK
+- hosts: switches
+  gather_facts: no
+  strategy: linear
+  serial: 1000
+
+  vars:
+    ansible_connection: ansible.netcommon.network_cli
+    ansible_network_os: cisco.ios.ios 
+    ansible_user: '{{ rhsm_username }}'
+    ansible_ssh_pass: '{{ rhsm_password }}'
+    ansible_become: yes
+    ansible_become_method: enable
+    ansible_become_password: '{{ rhsm_password }}'
+
+  tasks:
+    ##############################################################################################
+    - name: IOS SHOW VERSION (first)
+    ##############################################################################################
+      cisco.ios.ios_command:
+        commands: 
+          - show version
+        retries: 1
+      register: reg_show_ver
+      timeout: 10
+      ignore_errors: yes
+      
+    - name: F*cking Meta
+      meta: end_host
+      when: reg_show_ver is not defined or reg_show_ver.failed
+
+    ##############################################################################################
+    - name: IOS CONFIG COMMANDS
+    ##############################################################################################
+      vars:
+        config_commands_str: |-
+          show inventory
+          show running-config
+      cisco.ios.ios_command:
+        commands: 
+          - "{{ item }}"
+        retries: 1
+      register: reg_config_commands
+      with_items: "{{ config_commands_str | split('\n') | select()| list }}"
+      ignore_errors: no  
+ 
+
+    - debug:
+      msg:
+        - "{{ reg_show_ver.stdout_lines|join('\n') }}" 
+        - "{{ reg_config_commands.stdout_lines|join('\n') }}" 
 
     # BLOCK
     #ignore_errors: true
