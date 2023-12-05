@@ -29,15 +29,17 @@
       when: reg_show_ver is not defined or reg_show_ver.failed
 
     ##############################################################################################
-    - name: IOS CONFIG COMMANDS
+    - name: COMPOSE RESULT
     ##############################################################################################
-      vars:
-        shrunOutput: "{{ reg_show_ver.stdout_lines|join('\\n') }}" 
+      become: no
+      set_fact: 
+        connection: none
+        _result: "{{ reg_show_ver.stdout_lines|join('\\n') }}" 
  
     - name: PrintOut
       debug:
         msg:
-          - "{{ reg_show_ver.stdout[0]|join('\\n') }}"  
+          - "{% for item in _result %}{{ item + '\n'}}{% endfor %}"
 
     # BLOCK
     #ignore_errors: true
