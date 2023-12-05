@@ -28,13 +28,25 @@
       meta: end_host
       when: reg_show_ver is not defined or reg_show_ver.failed
 
-    - name: ASDASDA
+    ##############################################################################################
+    - name: IOS CONFIG COMMANDS
+    ##############################################################################################
       vars:
-        shrunOutput: "{{ reg_show_ver.stdout_lines|join('\\n') }}" 
+        config_commands_str: |-
+          show inventory
+          show running-config
+      cisco.ios.ios_command:
+        commands: 
+          - "{{ item }}"
+        retries: 1
+      register: reg_config_commands
+      with_items: "{{ config_commands_str | split('\n') | select()| list }}"
+      ignore_errors: no  
+ 
 
-    - name: AAAAA
-      debug: 
-          msg: "{% for item in shrunOutput %}{{ item + '\n'}}{% endfor %}"
+    - debug:
+      msg:
+        - "{{ reg_show_ver.stdout[0]|join('\\n') }}"  
 
     # BLOCK
     #ignore_errors: true
