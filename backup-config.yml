@@ -18,7 +18,7 @@
     ##############################################################################################
       cisco.ios.ios_command:
         commands: 
-          - show version
+          - show run
         retries: 1
       register: reg_show_ver
       timeout: 10
@@ -32,16 +32,7 @@
     - name: IOS CONFIG COMMANDS
     ##############################################################################################
       vars:
-        config_commands_str: |-
-          show inventory
-          show running-config
-      cisco.ios.ios_command:
-        commands: 
-          - "{{ item }}"
-        retries: 1
-      register: reg_config_commands
-      with_items: "{{ config_commands_str | split('\n') | select()| list }}"
-      ignore_errors: no  
+        shrunOutput: "{{ reg_show_ver.stdout_lines|join('\\n') }}" 
  
     - name: PrintOut
       debug:
