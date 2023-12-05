@@ -13,7 +13,6 @@
     ansible_become_password: '{{ rhsm_password }}'
 
   tasks:
-    - block:
     ##############################################################################################
     - name: IOS SHOW VERSION (first)
     ##############################################################################################
@@ -61,7 +60,3 @@
           {{ res.stdout.0 }}
           {% endif  %}
           {% endfor  %}
-
-    # BLOCK
-    #ignore_errors: true
-  #BLOCK
