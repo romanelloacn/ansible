@@ -43,5 +43,26 @@
       with_items: "{{ config_commands_str | split('\n') | select()| list }}"
       ignore_errors: no
 
-    - debug: msg={{ reg_show_ver.stdout }}
-    - debug: msg={{ reg_config_commands.stdout }}
+    - debug: var=ps.stdout_lines
+
+    - name: IOS COMPOSE _result
+      become: no
+      set_fact: 
+        connection: none
+        _result: |-
+          !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+          !!! Executing ios command: show version
+          !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+          {{ reg_show_ver.stdout[0] }}
+          {% for res in reg_config_commands.results %}
+          {% if res.stdout is defined %}
+          !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+          !!! Executing ios command: {{ res.item }}
+          !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+          {{ res.stdout.0 }}
+          {% endif  %}
+          {% endfor  %}
+
+    # BLOCK
+    #ignore_errors: true
+  #BLOCK
