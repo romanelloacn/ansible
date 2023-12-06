@@ -1,4 +1,18 @@
-tasks: 
+- hosts: switches
+  gather_facts: no
+  strategy: linear
+  serial: 1000
+
+  vars:
+    ansible_connection: ansible.netcommon.network_cli
+    ansible_network_os: cisco.ios.ios 
+    ansible_user: '{{ rhsm_username }}'
+    ansible_ssh_pass: '{{ rhsm_password }}'
+    ansible_become: yes
+    ansible_become_method: enable
+    ansible_become_password: '{{ rhsm_password }}'
+
+  tasks: 
     - name: Merge vlan with current device configuration
       cisco.ios.ios_vlans:
         config:
@@ -19,19 +33,3 @@ tasks:
       register: reg_merge_vlan
       timeout: 10
       ignore_errors: yes  
-
-    #- name: Merge interface with current device configuration
-    #  cisco.ios.ios_l2_interfaces:
-    #    config:
-     #     - name: GigabitEthernet0/10
-     #       mode: access
-     #       access:
-      #        vlan: 10 
-      #    - name: GigabitEthernet0/11
-     #       mode: access
-    #        access:
-    #          vlan: 10 
-  #      state: merged
-  #    register: reg_merge_interface
-  #    timeout: 10
-  #    ignore_errors: yes 
