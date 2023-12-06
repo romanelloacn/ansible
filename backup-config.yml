@@ -39,7 +39,8 @@
     - name: PrintOut
       debug:
         msg:
-          - "{% for item in reg_show_ver.stdout_lines[0] %}{{ item + '\n'}}{% endfor %}"
+          #- "{% for item in reg_show_ver.stdout_lines[0] %}{{ item + '\n'}}{% endfor %}"
+          - reg_show_ver.stdout_lines[0]
 
     # BLOCK
     #ignore_errors: true
