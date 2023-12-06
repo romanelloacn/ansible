@@ -29,17 +29,17 @@
       when: reg_show_ver is not defined or reg_show_ver.failed
 
     ##############################################################################################
-    - name: COMPOSE RESULT
+    #- name: COMPOSE RESULT
     ##############################################################################################
-      become: no
-      set_fact: 
-        connection: none
-        _result: "{{ reg_show_ver.stdout[0] | join('\n') }}" 
+    #  become: no
+    #  set_fact: 
+    #    connection: none
+    #    _result: "{{ reg_show_ver.stdout[0] | join('\n') }}" 
  
     - name: PrintOut
       debug:
         msg:
-          - "{% for item in _result %}{{ item + '\n'}}{% endfor %}"
+          - "{% for item in reg_show_ver.stdout_lines[0] %}{{ item + '\n'}}{% endfor %}"
 
     # BLOCK
     #ignore_errors: true
