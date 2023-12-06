@@ -26,4 +26,18 @@
       register: reg_merge_vlan
       timeout: 10
       ignore_errors: yes 
-
+    - name: Merge interface with current device configuration
+      cisco.ios.ios_l2_interfaces:
+        config:
+          - name: GigabitEthernet0/10
+            mode: access
+              access:
+              vlan: 10 
+          - name: GigabitEthernet0/11
+            mode: access
+            access:
+              vlan: 10 
+        state: merged
+      register: reg_merge_interface
+      timeout: 10
+      ignore_errors: yes   
