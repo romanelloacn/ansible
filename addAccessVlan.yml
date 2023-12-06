@@ -44,4 +44,4 @@
       register: reg_merge_interface
       timeout: 10
       ignore_errors: yes   
-      when: model|lower is search("c9300-24ub")
+      when: model|lower is search("c9300-24ub") #messo per differenziare se usare gi1/0/1 o gi0/1
