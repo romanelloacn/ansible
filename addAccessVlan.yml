@@ -41,3 +41,4 @@
       register: reg_merge_interface
       timeout: 10
       ignore_errors: yes   
+      when: model|lower is c9300-24ub
