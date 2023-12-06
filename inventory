@@ -1,4 +1,4 @@
 192.168.0.94
 
 [switches]
-sw-border            ansible_host=192.168.0.80            loc=acig       model=654
+sw-border    ansible_host=192.168.0.80    loc=acig    model=C9300-24UB ios=xr swVer=17.06.04
