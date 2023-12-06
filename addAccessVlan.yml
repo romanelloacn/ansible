@@ -35,4 +35,4 @@
       ignore_errors: yes 
 
     - debug:
-        var: reg_merge_vlan.stdout
+        var: "{{ reg_merge_vlan.stdout }}"
