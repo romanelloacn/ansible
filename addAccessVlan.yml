@@ -26,6 +26,9 @@
       register: reg_merge_vlan
       timeout: 10
       ignore_errors: yes 
+    - name: printModel
+      debug:
+        msg: model
     - name: Merge interface with current device configuration
       cisco.ios.ios_l2_interfaces:
         config:
@@ -41,4 +44,4 @@
       register: reg_merge_interface
       timeout: 10
       ignore_errors: yes   
-      when: model|lower is c9300-24ub
+      when: model|lower is search("c9300-24ub")
