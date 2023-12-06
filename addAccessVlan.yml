@@ -14,7 +14,7 @@
 
   tasks: 
     - name: Merge vlan with current device configuration
-      cisco.ios.ios_vlan:
+      ios_vlan:
         config:
           - { vlan_id: 10, name: test-vlan10, interfaces: GigabitEthernet0/3 }
           - { vlan_id: 20, name: test-vlan20, interfaces: GigabitEthernet0/4 }
