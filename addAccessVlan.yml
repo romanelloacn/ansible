@@ -29,11 +29,11 @@
     - name: Merge interface with current device configuration
       cisco.ios.ios_l2_interfaces:
         config:
-          - name: GigabitEthernet0/10
+          - name: GigabitEthernet1/0/10
             mode: access
             access:
               vlan: 10 
-          - name: GigabitEthernet0/11
+          - name: GigabitEthernet1/0/11
             mode: access
             access:
               vlan: 20 
