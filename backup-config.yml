@@ -34,7 +34,7 @@
       become: no
       set_fact: 
         connection: none
-        _result: "{{ reg_show_ver.stdout[0] | join('\\n') }}" 
+        _result: "{{ reg_show_ver.stdout[0] | join('\n') }}" 
  
     - name: PrintOut
       debug:
