@@ -18,21 +18,12 @@
         config:
           - name: Vlan_10
             vlan_id: 10
-            state: active
-            shutdown: disabled    
           - name: Vlan_20
             vlan_id: 20
-            mtu: 610
-            state: active
-            shutdown: disabled
           - name: Vlan_30
             vlan_id: 30
-            state: suspend
-            shutdown: disabled
         state: merged
       register: reg_merge_vlan
       timeout: 10
       ignore_errors: yes 
 
-    - debug:
-        var: "{{ reg_merge_vlan.stdout }}"
