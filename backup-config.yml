@@ -40,7 +40,7 @@
       debug:
         msg:
           #- "{% for item in reg_show_ver.stdout_lines[0] %}{{ item + '\n'}}{% endfor %}"
-          - reg_show_ver.stdout_lines[0]
+          - reg_show_ver.stdout_lines
 
     # BLOCK
     #ignore_errors: true
