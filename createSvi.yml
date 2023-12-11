@@ -29,13 +29,13 @@
       ignore_errors: yes   
       when: model|lower is search("c9300-24ub")
     - name: Set interface to use Vlan100
-        cisco.ios.ios_l2_interfaces:
-          config:
-            - name: GigabitEthernet1/0/13
-              mode: access
-              access:
-                vlan: 100
-        state: merged
+      cisco.ios.ios_l2_interfaces:
+        config:
+          - name: GigabitEthernet1/0/13
+            mode: access
+            access:
+              vlan: 100
+      state: replaced
       when: model|lower is search("c9300-24ub")
     - name: Rename interfaces
       cisco.ios.ios_interfaces:
