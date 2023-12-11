@@ -19,13 +19,9 @@
           - name: Gi1/0/13.100
             ipv4:
               - address: 192.168.100.0/24
-              - dhcp:
-                enable: false
           - name: Gi1/0/13.200
             ipv4:
               - address: 192.168.200.0/24
-              - dhcp:
-                enable: false
           - name: Gi1/0/14
             ipv4:
               - dhcp:
