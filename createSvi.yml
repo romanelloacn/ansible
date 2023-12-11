@@ -28,10 +28,6 @@
                - name: Vlan_100
                  ipv4:
                    - address: 192.168.100.1/24
-               - name: Gi1/0/14
-                 ipv4:
-                   - dhcp:
-                       enable: true
               state: replaced
              
         - name: Set interface to use Vlan_100
