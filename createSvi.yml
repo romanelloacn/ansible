@@ -14,43 +14,12 @@
 
   tasks:
     #- name: Crate Vlan, Create SVI, assign to interface, change description
-      - block:
-        - name: Merge new vlan with current device configuration
-          cisco.ios.ios_vlans:
-            config:
-              - name: Vlan_100
-                vlan_id: 100
-          state: merged
-          
-        - name: Merge l3 interface with current device configuration
-          cisco.ios.ios_l3_interfaces:
-             config:
-               - name: Vlan_100
-                 ipv4:
-                   - address: 192.168.100.0/24
-               - name: Gi1/0/14
-                 ipv4:
-                   - dhcp:
-                       enable: true
-             state: replaced
-             
-        - name: Set interface to use Vlan_100
-          cisco.ios.ios_l2_interfaces:
-            config:
-              - name: GigabitEthernet1/0/13
-                mode: access
-                access:
-                  vlan: 100
-            state: replaced 
-            
-        - name: Rename interfaces
-          cisco.ios.ios_interfaces:
+    - block:
+      - name: Merge new vlan with current device configuration
+        cisco.ios.ios_vlans:
           config:
-            - name: Gi1/0/13
-              description: Test SVI with vlans
-              enabled: true
-            - name: Gi1/0/14
-              description: Test shut
-              enabled: false
+            - name: Vlan_100
+              vlan_id: 100
+        state: merged
         #when: model|lower is search("c9300-24ub")
         #ignore_errors: true
