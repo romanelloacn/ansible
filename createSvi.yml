@@ -29,7 +29,6 @@
       ignore_errors: yes   
       when: model|lower is search("c9300-24ub")
     - name: Set interface to use Vlan100
-      - name: Merge interface with current device configuration
         cisco.ios.ios_l2_interfaces:
           config:
             - name: GigabitEthernet1/0/13
