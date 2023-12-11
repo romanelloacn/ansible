@@ -20,7 +20,7 @@
               config:
                 - name: Vlan_100
                   vlan_id: 100
-            state: merged
+              state: merged
         - name: Merge l3 interface with current device configuration
             cisco.ios.ios_l3_interfaces:
               config:
