@@ -29,7 +29,16 @@
                  ipv4:
                    - address: 192.168.100.1/24
               state: replaced
-             
+        - name: Set svi directly to interface
+          cisco.ios.ios_l3_interfaces:
+            config:
+              - name: GigabitEthernet1/0/14.50
+                ipv4:
+                   - address: 192.168.50.1/24
+              - name: GigabitEthernet1/0/14.60
+                ipv4:
+                   - address: 192.168.60.1/24
+            state: replaced        
         - name: Set interface to use Vlan_100
           cisco.ios.ios_l2_interfaces:
             config:
@@ -37,7 +46,7 @@
                 mode: access
                 access:
                   vlan: 100
-            state: replaced  
+            state: replaced 
         - name: Rename interfaces
           cisco.ios.ios_interfaces:
             config:
