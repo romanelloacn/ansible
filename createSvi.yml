@@ -1,0 +1,37 @@
+- hosts: switches
+  gather_facts: no
+  strategy: linear
+  serial: 1000
+
+  vars:
+    ansible_connection: ansible.netcommon.network_cli
+    ansible_network_os: cisco.ios.ios 
+    ansible_user: '{{ rhsm_username }}'
+    ansible_ssh_pass: '{{ rhsm_password }}'
+    ansible_become: yes
+    ansible_become_method: enable
+    ansible_become_password: '{{ rhsm_password }}'
+
+  tasks:
+    - name: Merge l3 interface with current device configuration
+      cisco.ios.ios_l3_interfaces:
+        config:
+          - name: Gi1/0/13.100
+            ipv4:
+              - address: 192.168.100.0/24
+              - dhcp:
+                enable: false
+          - name: Gi1/0/13.200
+            ipv4:
+              - address: 192.168.200.0/24
+              - dhcp:
+                enable: false
+          - name: Gi1/0/14
+            ipv4:
+              - dhcp:
+                  enable: true
+        state: replaced
+      register: reg_merge_interface
+      timeout: 10
+      ignore_errors: yes   
+      when: model|lower is search("c9300-24ub")
