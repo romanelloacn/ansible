@@ -13,14 +13,15 @@
     ansible_become_password: '{{ rhsm_password }}'
 
   tasks:
-    - name: Crate Vlan, Create SVI, assign to interface, change description
-      block:
-        - name: Merge vlan with current device configuration
+    #- name: Crate Vlan, Create SVI, assign to interface, change description
+     - block:
+        - name: Merge new vlan with current device configuration
           cisco.ios.ios_vlans:
             config:
               - name: Vlan_100
                 vlan_id: 100
           state: merged
+          
         - name: Merge l3 interface with current device configuration
           cisco.ios.ios_l3_interfaces:
              config:
@@ -32,6 +33,7 @@
                    - dhcp:
                        enable: true
              state: replaced
+             
         - name: Set interface to use Vlan_100
           cisco.ios.ios_l2_interfaces:
             config:
@@ -40,6 +42,7 @@
                 access:
                   vlan: 100
             state: replaced 
+            
         - name: Rename interfaces
           cisco.ios.ios_interfaces:
           config:
