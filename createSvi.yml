@@ -14,7 +14,7 @@
 
   tasks:
     #- name: Crate Vlan, Create SVI, assign to interface, change description
-     - block:
+      - block:
         - name: Merge new vlan with current device configuration
           cisco.ios.ios_vlans:
             config:
