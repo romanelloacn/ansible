@@ -35,3 +35,13 @@
       timeout: 10
       ignore_errors: yes   
       when: model|lower is search("c9300-24ub")
+    - name: Rename interfaces
+      cisco.ios.ios_interfaces:
+        config:
+          - name: Gi1/0/13
+            description: Test SVI with vlans
+            enabled: true
+          - name: Gi1/0/14
+            ddescription: Test shut
+            enabled: false
+          
