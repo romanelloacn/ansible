@@ -49,4 +49,4 @@
             - name: Gi1/0/14
               description: Test shut
               enabled: false
-      when: model|lower is search("c9300-24ub")
+        when: model|lower is search("c9300-24ub")
