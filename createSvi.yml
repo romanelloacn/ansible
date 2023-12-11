@@ -16,12 +16,9 @@
     - name: Merge l3 interface with current device configuration
       cisco.ios.ios_l3_interfaces:
         config:
-          - name: Gi1/0/13.100
+          - name: Gi1/0/13
             ipv4:
               - address: 192.168.100.0/24
-          - name: Gi1/0/13.200
-            ipv4:
-              - address: 192.168.200.0/24
           - name: Gi1/0/14
             ipv4:
               - dhcp:
@@ -38,6 +35,6 @@
             description: Test SVI with vlans
             enabled: true
           - name: Gi1/0/14
-            ddescription: Test shut
+            description: Test shut
             enabled: false
           
