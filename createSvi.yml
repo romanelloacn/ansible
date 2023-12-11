@@ -20,11 +20,11 @@
             config:
               - name: Vlan_100
                 vlan_id: 100
-          state: merged
+            state: merged
           
         - name: Merge l3 interface with current device configuration
           cisco.ios.ios_l3_interfaces:
-             config:
+              config:
                - name: Vlan_100
                  ipv4:
                    - address: 192.168.100.0/24
@@ -32,7 +32,7 @@
                  ipv4:
                    - dhcp:
                        enable: true
-             state: replaced
+              state: replaced
              
         - name: Set interface to use Vlan_100
           cisco.ios.ios_l2_interfaces:
