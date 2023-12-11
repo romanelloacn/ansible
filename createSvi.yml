@@ -41,8 +41,7 @@
                 mode: access
                 access:
                   vlan: 100
-            state: replaced 
-            
+            state: replaced  
         - name: Rename interfaces
           cisco.ios.ios_interfaces:
             config:
