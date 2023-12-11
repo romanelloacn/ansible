@@ -45,12 +45,12 @@
             
         - name: Rename interfaces
           cisco.ios.ios_interfaces:
-          config:
-            - name: Gi1/0/13
-              description: Test SVI with vlans
-              enabled: true
-            - name: Gi1/0/14
-              description: Test shut
-              enabled: false
+            config:
+              - name: Gi1/0/13
+                escription: Test SVI with vlans
+                enabled: true
+              - name: Gi1/0/14
+                description: Test shut
+                enabled: false
       when: model|lower is search("c9300-24ub")
       ignore_errors: true
