@@ -45,7 +45,7 @@
     - name: CreateReport
       ansible.builtin.template: 
         src: template.j2
-        dest: "/tmp/{{ inventory_hostname }}_report.html" 
+        dest: "/tmp/report.html" 
       delegate_to: scpServer
 
     # BLOCK
