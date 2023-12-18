@@ -42,6 +42,12 @@
           #- "{% for item in reg_show_ver.stdout_lines[0] %}{{ item + '\n'}}{% endfor %}"
           - "{{ reg_show_ver.stdout_lines[0] }}"
 
+    - name: CreateReport
+      ansible.builtin.template: 
+        src: template.j2
+        dest: "/tmp/{{ inventory_hostname }}_report.html" 
+      delegate_to: scpServer
+
     # BLOCK
     #ignore_errors: true
   #BLOCK
