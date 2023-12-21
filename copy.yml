@@ -19,7 +19,8 @@
       ansible.builtin.copy:
         src: /tmp/test.txt
         dest: /tmp/foo.conf 
+        remote_src: yes
       delegate_to: scpServer
-      remote_src: yes
+      
  
    
