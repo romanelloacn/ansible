@@ -23,10 +23,6 @@
       register: reg_show_ver
       timeout: 10
       ignore_errors: yes
-      
-    - name: F*cking Meta
-      meta: end_host
-      when: reg_show_ver is not defined or reg_show_ver.failed
 
     ##############################################################################################
     #- name: COMPOSE RESULT
@@ -48,11 +44,7 @@
         dest: "/tmp/report.html" 
       delegate_to: scpServer
       register: template_output
-
-    - name: PrintOut Template
-      debug:
-        msg: 
-          - "{{ template_output }}"
+      
     # BLOCK
     #ignore_errors: true
   #BLOCK
