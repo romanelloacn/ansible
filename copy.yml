@@ -17,7 +17,8 @@
     - name: IOS SHOW VERSION (first)
     ##############################################################################################
       ansible.builtin.copy:
-      src: /srv/myfiles/foo.conf
-      dest: /etc/foo.conf 
+        src: /tmp/test.txt
+        dest: /tmp/foo.conf 
+      delegate_to: scpServer
  
    
