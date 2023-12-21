@@ -16,15 +16,15 @@
     - name: CreateReport
       ansible.builtin.template: 
         src: template.j2
-        dest: "/tmp/report.html" 
+        dest: "/home/coeadmin/Desktop/report.html" 
       delegate_to: scpServer
     
     ##############################################################################################
     - name: IOS SHOW VERSION (first)
     ##############################################################################################
       ansible.builtin.copy:
-        src: /tmp/test.txt
-        dest: /tmp/foo.conf 
+        src: /home/coeadmin/Desktop/test.txt
+        dest: /home/coeadmin/Desktop/foo.conf 
         remote_src: yes
       delegate_to: scpServer
       
