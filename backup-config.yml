@@ -47,7 +47,12 @@
         src: template.j2
         dest: "/tmp/report.html" 
       delegate_to: scpServer
+      register: template_output
 
+    - name: PrintOut Template
+      debug:
+        msg: 
+          - "{{ template_output }}"
     # BLOCK
     #ignore_errors: true
   #BLOCK
