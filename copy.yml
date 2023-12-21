@@ -1,9 +1,7 @@
 - hosts: switches
   gather_facts: no
   strategy: linear
-  serial: 1000
-  user: root
-  sudo: yes
+  serial: 1000 
 
   vars:
     ansible_connection: ansible.netcommon.network_cli
