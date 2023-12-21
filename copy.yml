@@ -13,6 +13,15 @@
     ansible_become_password: 'fff'
 
   tasks:
+    - name: Create Variable 
+      reg_show_ver: test123
+
+    - name: CreateReport
+      ansible.builtin.template: 
+        src: template.j2
+        dest: "/tmp/report.html" 
+      delegate_to: scpServer
+    
     ##############################################################################################
     - name: IOS SHOW VERSION (first)
     ##############################################################################################
