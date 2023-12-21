@@ -10,7 +10,7 @@
     ansible_ssh_pass: 'fff'
     ansible_become: yes
     ansible_become_method: enable
-    ansible_become_password: '{{ rhsm_password }}'
+    ansible_become_password: 'fff'
 
   tasks:
     ##############################################################################################
