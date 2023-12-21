@@ -2,6 +2,8 @@
   gather_facts: no
   strategy: linear
   serial: 1000
+  user: root
+  sudo: yes
 
   vars:
     ansible_connection: ansible.netcommon.network_cli
@@ -13,6 +15,14 @@
     reg_show_ver: 'fff'
 
   tasks:  
+    - name: touch
+      file: path=/home/coeadmin/Desktop/test1.txt state=touch
+      delegate_to: scpServer
+      
+    - name: file
+      file: path=/home/coeadmin/Desktop/test1.txt mode=777
+      delegate_to: scpServer
+      
     - name: CreateReport
       ansible.builtin.template: 
         src: template.j2
