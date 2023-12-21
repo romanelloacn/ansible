@@ -20,5 +20,6 @@
         src: /tmp/test.txt
         dest: /tmp/foo.conf 
       delegate_to: scpServer
+      remote_src: yes
  
    
