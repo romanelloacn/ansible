@@ -12,21 +12,21 @@
     ansible_become_method: enable
     reg_show_ver: 'fff'
 
-  tasks:  
-    - name: touch
-      file: path=/home/coeadmin/Desktop/test1.txt state=touch
-      delegate_to: scpServer
-      
-    - name: file
-      file: path=/home/coeadmin/Desktop/test1.txt mode=777
-      delegate_to: scpServer
-      
+  tasks:        
     - name: CreateReport
       ansible.builtin.template: 
         src: template.j2
         dest: "/home/coeadmin/Desktop/report.html" 
       delegate_to: scpServer
+
+    - name: Use stat module to find the file details 
+      ansible.builtin.stat: path: /tmp/report.html 
+      register: reg_stat_out 
+      delegate_to: scpServer
     
+    - name: Print file details 
+      debug: msg: "{{ reg_stat_out }}"
+
     ##############################################################################################
     - name: IOS SHOW VERSION (first)
     ##############################################################################################
