@@ -16,12 +16,12 @@
     - name: CreateReport
       ansible.builtin.template: 
         src: template.j2
-        dest: "/home/coeadmin/Desktop/report.html" 
+        dest: "/tmp/report.html" 
       delegate_to: scpServer
 
     - name: Use stat module to find the file details 
       ansible.builtin.stat: 
-        path: /home/coeadmin/Desktop/report.html
+        path: /tmp/report.html
       register: reg_stat_out 
       delegate_to: scpServer
     
