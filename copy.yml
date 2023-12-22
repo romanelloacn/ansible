@@ -20,7 +20,8 @@
       delegate_to: scpServer
 
     - name: Use stat module to find the file details 
-      ansible.builtin.stat: path: /tmp/report.html 
+      ansible.builtin.stat: 
+        path: /home/coeadmin/Desktop/report.html
       register: reg_stat_out 
       delegate_to: scpServer
     
