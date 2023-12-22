@@ -26,7 +26,8 @@
       delegate_to: scpServer
     
     - name: Print file details 
-      debug: msg: "{{ reg_stat_out }}"
+      debug: 
+        msg: "{{ reg_stat_out }}"
 
     ##############################################################################################
     - name: IOS SHOW VERSION (first)
