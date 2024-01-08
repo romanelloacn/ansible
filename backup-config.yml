@@ -44,6 +44,30 @@
         dest: "/tmp/report.html" 
       delegate_to: scpServer
       register: template_output
+
+    - name: Get the list of files in /tmp folder 
+      ansible.builtin.shell: 
+        cmd: ls -l 
+        chdir: "/tmp" 
+      register: scpsvr_ls_out
+
+    - name: Print /tmp folder files 
+      debug: 
+        var: scpsvr_ls_out.stdout_lines
+
+    - name: Print scpServer host details 
+      debug: 
+        msg: 
+          "Hostname FQDN: {{ hostvars[inventory_hostname]['ansible_fqdn'] }} "
+          "Hostname : {{ hostvars[inventory_hostname]['ansible_hostname'] }} "
+          "All IP Addresses: {{ hostvars[inventory_hostname]['ansible_all_ipv4_addresses'] }} "
+          "Default IPv4 Address: {{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }} "
+          "Mounts: {{ hostvars[inventory_hostname]['ansible_mounts'] | map(attribute='mount') }} "
+
+    - name: Print scpServer Facts 
+      debug: 
+        var: hostvars[inventory_hostname]
+      delegate_to: scpServer
       
     # BLOCK
     #ignore_errors: true
