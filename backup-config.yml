@@ -41,14 +41,14 @@
     - name: CreateReport
       ansible.builtin.template: 
         src: template.j2
-        dest: "/tmp/report.html" 
+        dest: "/var/ansibleOutput/report.html" 
       delegate_to: scpServer
       register: template_output
 
     - name: Get the list of files in /tmp folder 
       ansible.builtin.shell: 
         cmd: ls -l 
-        chdir: "/tmp" 
+        chdir: "/var/ansibleOutput" 
       delegate_to: scpServer
       register: scpsvr_ls_out
 
