@@ -38,17 +38,17 @@
           #- "{% for item in reg_show_ver.stdout_lines[0] %}{{ item + '\n'}}{% endfor %}"
           - "{{ reg_show_ver.stdout_lines[0] }}"
 
-    - name: CreateReport
-      ansible.builtin.template: 
-        src: template.j2
-        dest: "/var/ansibleOutput/report.html" 
-      delegate_to: scpServer
-      register: template_output
+    #- name: CreateReport
+    #  ansible.builtin.template: 
+     #   src: template.j2
+    #    dest: "/var/ansibleOutput/report.html" 
+     # delegate_to: scpServer
+     # register: template_output
 
     - name: Get the list of files in /tmp folder 
       ansible.builtin.shell: 
         cmd: ls -l 
-        chdir: "/var/ansibleOutput" 
+        chdir: "/" 
       delegate_to: scpServer
       register: scpsvr_ls_out
 
