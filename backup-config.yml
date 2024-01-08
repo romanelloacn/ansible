@@ -48,7 +48,7 @@
     - name: Get the list of files in /tmp folder 
       ansible.builtin.shell: 
         cmd: ls -l 
-        chdir: "/" 
+        chdir: "/home" 
       delegate_to: scpServer
       register: scpsvr_ls_out
 
