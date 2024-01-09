@@ -43,7 +43,7 @@
           gather_subset:
             - 'min'
       - set_fact:
-        fileName: {{inventory_hostname + ansible_date_time.date}}
+          fileName: "{{inventory_hostname + ansible_date_time.date}}"
       - name: CreateReport
         ansible.builtin.template: 
           src: printshrun.j2
