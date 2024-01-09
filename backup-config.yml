@@ -1,6 +1,7 @@
 - hosts: switches
   strategy: linear
   serial: 1000   
+  gather_facts: no
   ignore_unreachable: true
   tasks:  
     - block: 
@@ -37,6 +38,10 @@
         ansible_become_password: '{{ rhsm_password }}'
 
     - block:
+      #ottengo la data
+      - setup:
+          gather_subset:
+            - 'min'
       - name: CreateReport
         ansible.builtin.template: 
           src: printshrun.j2
