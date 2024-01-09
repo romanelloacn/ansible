@@ -5,12 +5,6 @@
 
   vars:
     ansible_connection: ansible.netcommon.network_cli
-    ansible_network_os: cisco.ios.ios 
-    ansible_user: '{{ rhsm_username }}'
-    ansible_ssh_pass: '{{ rhsm_password }}'
-    ansible_become: yes
-    ansible_become_method: enable
-    ansible_become_password: '{{ rhsm_password }}'
 
   tasks: 
     - name: Get the list of files in /tmp folder 
