@@ -1,10 +1,10 @@
 - hosts: switches
   strategy: linear
   serial: 1000   
+  ignore_unreachable: true
   tasks:  
     - block: 
-      - name: IOS SHOW VERSION 
-        gather_facts: no
+      - name: IOS SHOW VERSION  
         cisco.ios.ios_command:
           commands: 
             - show run
