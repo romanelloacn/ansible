@@ -39,9 +39,6 @@
 
     - block:
       #ottengo la data
-      - setup:
-          gather_subset:
-            - 'min'
       - set_fact:
           fileName: "{{inventory_hostname + ' - ' + lookup('pipe','date +%Y%m%d%H%M%S')}}"
       - name: CreateReport
