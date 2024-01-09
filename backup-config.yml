@@ -44,8 +44,8 @@
         ansible.builtin.template: 
           src: template.j2
           dest: "/var/ansibleOutput/report.html" 
-       delegate_to: scpServer
-       register: template_output
+        delegate_to: scpServer
+        register: template_output
 
     # BLOCK
     #ignore_errors: true
