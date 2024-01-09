@@ -40,7 +40,6 @@
 
     - block:
       - name: CreateReport
-        gather_facts: yes
         ansible.builtin.template: 
           src: printshrun.j2
           dest: "/var/ansibleOutput/report{{inventory_hostname + ansible_date_time.date}}.html"
