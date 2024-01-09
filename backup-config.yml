@@ -1,6 +1,7 @@
 - hosts: switches
   strategy: linear
   serial: 1000   
+  gather_facts: no
   ignore_unreachable: true
   tasks:  
     - block: 
