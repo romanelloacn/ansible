@@ -28,9 +28,7 @@
           msg:
             #- "{% for item in reg_show_ver.stdout_lines[0] %}{{ item + '\n'}}{% endfor %}"
             - "{{ reg_show_ver.stdout_lines[0] }}"
-
-      
-      gather_facts: no
+ 
       vars:
         ansible_connection: ansible.netcommon.network_cli
         ansible_network_os: cisco.ios.ios 
