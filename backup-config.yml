@@ -1,12 +1,10 @@
 - hosts: switches
   strategy: linear
-  serial: 1000  
-  gather_subset: ['date_time']
+  serial: 1000   
+  gather_facts: no
   tasks:  
-    - block:
-      ##############################################################################################
-      - name: IOS SHOW VERSION (first)
-      ##############################################################################################
+    - block: 
+      - name: IOS SHOW VERSION 
         cisco.ios.ios_command:
           commands: 
             - show run
@@ -40,6 +38,7 @@
 
     - block:
       - name: CreateReport
+        gather_facts: yes
         ansible.builtin.template: 
           src: printshrun.j2
           dest: "/var/ansibleOutput/report{{inventory_hostname + ansible_date_time.date}}.html"
