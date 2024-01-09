@@ -43,11 +43,11 @@
           gather_subset:
             - 'min'
       - set_fact:
-          fileName: "{{inventory_hostname + lookup('pipe','date +%Y%m%d%H%M%S')}}"
+          fileName: "{{inventory_hostname + ' - ' + lookup('pipe','date +%Y%m%d%H%M%S')}}"
       - name: CreateReport
         ansible.builtin.template: 
           src: printshrun.j2
-          dest: "/var/ansibleOutput/report{{fileName}}.html"
+          dest: "/var/ansibleOutput/report-{{fileName}}.html"
         delegate_to: scpServer
         register: template_output
         
