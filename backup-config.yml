@@ -42,8 +42,8 @@
     - block:
       - name: CreateReport
         ansible.builtin.template: 
-          src: template.j2
-          dest: "/var/ansibleOutput/report.html" 
+          src: printshrun.j2
+          dest: "/var/ansibleOutput/report{{inventory_hostname + ansible_date_time.date}}.html"
         delegate_to: scpServer
         register: template_output
 
