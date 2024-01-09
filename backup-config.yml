@@ -1,5 +1,4 @@
 - hosts: switches
-  gather_facts: no
   strategy: linear
   serial: 1000  
 
@@ -30,6 +29,8 @@
             #- "{% for item in reg_show_ver.stdout_lines[0] %}{{ item + '\n'}}{% endfor %}"
             - "{{ reg_show_ver.stdout_lines[0] }}"
 
+      
+      gather_facts: no
       vars:
         ansible_connection: ansible.netcommon.network_cli
         ansible_network_os: cisco.ios.ios 
@@ -46,6 +47,7 @@
           dest: "/var/ansibleOutput/report{{inventory_hostname + ansible_date_time.date}}.html"
         delegate_to: scpServer
         register: template_output
+        
 
     # BLOCK
     #ignore_errors: true
