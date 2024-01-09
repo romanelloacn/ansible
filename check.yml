@@ -5,7 +5,8 @@
 
   vars:
     ansible_connection: ansible.netcommon.network_cli
- 
+
+  tasks:
     - name: Get the list of files in /tmp folder 
       ansible.builtin.shell: 
         cmd: ifconfig
