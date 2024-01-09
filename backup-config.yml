@@ -40,7 +40,7 @@
     - block:
       #ottengo la data
       - set_fact:
-          fileName: "{{inventory_hostname + ' - ' + lookup('pipe','date +%Y%m%d%H%M%S')}}"
+          fileName: "{{inventory_hostname + - + lookup('pipe','date +%Y%m%d%H%M%S')}}"
       - name: CreateReport
         ansible.builtin.template: 
           src: printshrun.j2
