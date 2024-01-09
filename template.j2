@@ -1,2 +1,7 @@
-test output
+test output2
+
+{% for line in reg_show_ver.stdout_lines[0] %}
+  {{ line }}\n
+{% endfor %}
+
 {{ reg_show_ver.stdout_lines[0] }} 
