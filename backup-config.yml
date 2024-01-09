@@ -42,10 +42,12 @@
       - setup:
           gather_subset:
             - 'min'
+      - set_fact:
+        fileName: {{inventory_hostname + ansible_date_time.date}}
       - name: CreateReport
         ansible.builtin.template: 
           src: printshrun.j2
-          dest: "/var/ansibleOutput/report{{inventory_hostname + ansible_date_time.date}}.html"
+          dest: "/var/ansibleOutput/report{{fileName}}.html"
         delegate_to: scpServer
         register: template_output
         
