@@ -1,4 +1,4 @@
-- hosts: "{{ scpServer }}"
+- hosts: scpServer
   gather_facts: no
   strategy: linear
   serial: 1000
