@@ -1,17 +1,22 @@
----
-- hosts: switches 
-  gather_facts: no  
+- hosts: scpServer
+  gather_facts: no
+  strategy: linear
+  serial: 1000
 
-  vars: # for execution environment
+  vars:
     ansible_connection: ansible.netcommon.network_cli
-    ansible_network_os: cisco.ios.ios 
-    ansible_user: '{{ rhsm_username }}'
-    ansible_ssh_pass: '{{ rhsm_password }}'
-    ansible_become: yes
-    ansible_become_method: enable
-    ansible_become_password: '{{ rhsm_password }}'
-    
-  tasks:
-    - name: Run show version on remote devices
-      cisco.ios.ios_command:
-          commands: show version
+ 
+    - name: Get the list of files in /tmp folder 
+      ansible.builtin.shell: 
+        cmd: ifconfig
+        chdir: "/"  
+      delegate_to: scpServer
+      register: scpsvr_ls_out
+
+    - name: Print /tmp folder files 
+      debug: 
+        var: scpsvr_ls_out.stdout_lines
+
+    # BLOCK
+    #ignore_errors: true
+  #BLOCK
