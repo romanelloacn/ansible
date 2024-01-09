@@ -1,60 +1,64 @@
 - hosts: switches
   gather_facts: no
   strategy: linear
-  serial: 1000
-
-  vars:
-    ansible_connection: ansible.netcommon.network_cli
-    ansible_network_os: cisco.ios.ios 
-    ansible_user: '{{ rhsm_username }}'
-    ansible_ssh_pass: '{{ rhsm_password }}'
-    ansible_become: yes
-    ansible_become_method: enable
-    ansible_become_password: '{{ rhsm_password }}'
+  serial: 1000  
 
   tasks:
-    ##############################################################################################
-    - name: IOS SHOW VERSION (first)
-    ##############################################################################################
-      cisco.ios.ios_command:
-        commands: 
-          - show run
-        retries: 1
-      register: reg_show_ver
-      timeout: 10
-      ignore_errors: yes
+    - name: Lavoro su switch
+      block:
+        - vars:
+            ansible_connection: ansible.netcommon.network_cli
+            ansible_network_os: cisco.ios.ios 
+            ansible_user: '{{ rhsm_username }}'
+            ansible_ssh_pass: '{{ rhsm_password }}'
+            ansible_become: yes
+            ansible_become_method: enable
+            ansible_become_password: '{{ rhsm_password }}'
+        ##############################################################################################
+        - name: IOS SHOW VERSION (first)
+        ##############################################################################################
+          cisco.ios.ios_command:
+            commands: 
+              - show run
+            retries: 1
+          register: reg_show_ver
+          timeout: 10
+          ignore_errors: yes
 
-    ##############################################################################################
-    #- name: COMPOSE RESULT
-    ##############################################################################################
-    #  become: no
-    #  set_fact: 
-    #    connection: none
-    #    _result: "{{ reg_show_ver.stdout[0] | join('\n') }}" 
- 
-    - name: PrintOut
-      debug:
-        msg:
-          #- "{% for item in reg_show_ver.stdout_lines[0] %}{{ item + '\n'}}{% endfor %}"
-          - "{{ reg_show_ver.stdout_lines[0] }}"
+        ##############################################################################################
+        #- name: COMPOSE RESULT
+        ##############################################################################################
+        #  become: no
+        #  set_fact: 
+        #    connection: none
+        #    _result: "{{ reg_show_ver.stdout[0] | join('\n') }}" 
+    
+        - name: PrintOut
+          debug:
+            msg:
+              #- "{% for item in reg_show_ver.stdout_lines[0] %}{{ item + '\n'}}{% endfor %}"
+              - "{{ reg_show_ver.stdout_lines[0] }}"
 
-    #- name: CreateReport
-    #  ansible.builtin.template: 
-     #   src: template.j2
-    #    dest: "/var/ansibleOutput/report.html" 
-     # delegate_to: scpServer
-     # register: template_output
+    - name: Lavoro su server
+      block:
+        #- name: CreateReport
+        #  ansible.builtin.template: 
+        #   src: template.j2
+        #    dest: "/var/ansibleOutput/report.html" 
+        # delegate_to: scpServer
+        # register: template_output
 
-    - name: Get the list of files in /tmp folder 
-      ansible.builtin.shell: 
-        cmd: ls -l 
-        chdir: "/"  
-      delegate_to: scpServer
-      register: scpsvr_ls_out
+        - name: Get the list of files in /tmp folder 
+          ansible.builtin.shell: 
+            #cmd: ls -l
+            cmd: ifconfig
+            chdir: "/"  
+          delegate_to: scpServer
+          register: scpsvr_ls_out
 
-    - name: Print /tmp folder files 
-      debug: 
-        var: scpsvr_ls_out.stdout_lines
+        - name: Print /tmp folder files 
+          debug: 
+            var: scpsvr_ls_out.stdout_lines
 
     # BLOCK
     #ignore_errors: true
