@@ -19,9 +19,20 @@
         parser:
           name: ansible.utils.textfsm
           template_path: cisco_ios_show_ip_arp.textfsm
-        set_fact: show_ip_arp
-  
+        set_fact: show_ip_arp 
 
     - name: Display parsed ARP table
       debug:
         var: show_ip_arp
+
+    - name: Get macTable results
+      ansible.utils.cli_parse:
+        command: show mac address-table
+        parser:
+          name: ansible.utils.textfsm
+          template_path: cisco_ios_show_mac-address-table.textfsm
+        set_fact: show_mac_table 
+
+    - name: Display parsed MAC table
+      debug:
+        var: show_mac_table
