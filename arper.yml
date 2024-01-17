@@ -18,10 +18,10 @@
         command: show ip arp
         parser:
           name: ansible.utils.textfsm
-          template_path: cisco_ios_show_ip_arp.textfsm
+          template_path: /home/ansi_user/ansible/templates/cisco_ios_show_ip_arp.textfsm
         set_fact: show_ip_arp
   
 
     - name: Display parsed ARP table
       debug:
-        var: arpParsed.stdout_lines  
+        var: show_ip_arp
