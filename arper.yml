@@ -1,4 +1,4 @@
-- hosts: '192.168.0.1'
+- hosts: sw-core
   gather_facts: no
   strategy: linear
   serial: 1000
