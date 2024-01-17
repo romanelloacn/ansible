@@ -25,3 +25,4 @@
     - name: Display parsed ARP table
       debug:
         var: parsed_arp_table  
+        test: lol  
