@@ -15,7 +15,7 @@
   tasks: 
     - name: Get arp results
       ansible.utils.cli_parse:
-        command: show ip arp
+        command: show arp
         parser:
           name: ansible.utils.textfsm
           template_path: cisco_ios_show_ip_arp.textfsm
