@@ -2,4 +2,5 @@
 scpServer    ansible_host=192.168.0.95
 
 [switches]
-sw-border    ansible_host=192.168.0.80    loc=acig    model=C9300-24UB ios=xr swVer=17.06.04
+sw-border    ansible_host=192.168.0.80    loc=acig    model=C9300-24UB   ios=xr swVer=17.06.04
+sw-core      ansible_host=192.168.0.1     loc=acig    model=WS-C4500X-32 ios=xe swVer=15.0(1r)SG11
