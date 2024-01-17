@@ -1,4 +1,4 @@
-- hosts: 192.168.0.1
+- hosts: sw-core
   gather_facts: no
   strategy: linear
   serial: 1000
@@ -24,5 +24,4 @@
 
     - name: Display parsed ARP table
       debug:
-        var: parsed_arp_table  
-        test: lol  
+        var: parsed_arp_table   
