@@ -24,7 +24,7 @@
           {% for line in arp_output.stdout_lines %}
               {% if line | regex_match('^(Internet|Protocol)') %}
                  
-              {% elseif %}
+              {% elif %}
               
                 {% set arp_entry = line | regex_replace('\\s+', ' ') | regex_replace('^\\s|\\s$', '') | split(' ') %}
                 
