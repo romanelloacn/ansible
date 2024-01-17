@@ -1,27 +1,29 @@
-- hosts: sw-core
+- hosts: '192.168.0.1'
   gather_facts: no
   strategy: linear
   serial: 1000
 
   vars:
-    ansible_connection: ansible.netcommon.network_cli 
-    ansible_network_os: cisco.ios.ios
+    ansible_connection: ansible.netcommon.network_cli
+    ansible_network_os: cisco.ios.ios 
     ansible_user: '{{ rhsm_username }}'
     ansible_ssh_pass: '{{ rhsm_password }}'
     ansible_become: yes
     ansible_become_method: enable
     ansible_become_password: '{{ rhsm_password }}'
-    
+
   tasks: 
     - name: Merge new vlan with current device configuration
       cisco.ios.ios_command:
         commands: show arp
       register: arp_output
 
-    - name: Parse ARP table
-      set_fact:
-        parsed_arp_table: "{{ arp_output.stdout_lines[0] | regex_findall('(?i)([0-9]+\\.[0-9]+\\.[0-9]+\\.[0-9]+)\\s+([0-9a-fA-F]+\\.[0-9a-fA-F]+\\.[0-9a-fA-F]+)\\s+([a-zA-Z0-9_\\-]+)') }}"
+    - name: Parse ARP table using Jinja2
+      template:
+        src: parse_arp_template.j2
+      vars:
+        arp_output: "{{ arp_output }}"
 
     - name: Display parsed ARP table
       debug:
-        var: parsed_arp_table   
+        var: arp_output.stdout_lines  
