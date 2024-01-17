@@ -29,11 +29,11 @@
                 {% set arp_entry = line | regex_replace('\\s+', ' ') | regex_replace('^\\s|\\s$', '') | split(' ') %}
                 
                 {% if arp_entry | length == 3 %}
-                {%    IP: arp_entry[0] , MAC: arp_entry[1], Interface: arp_entry[2] %}
+                    IP: {{ arp_entry[0] }}, MAC: {{ arp_entry[1] }}, Interface: {{ arp_entry[2] }}
                 {% endif %}
 
               {% endif %}
-
+              
           {% endfor %}
 
     - name: Display parsed ARP table
