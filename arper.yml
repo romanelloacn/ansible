@@ -13,17 +13,26 @@
     ansible_become_password: '{{ rhsm_password }}'
 
   tasks: 
-    - name: Merge new vlan with current device configuration
+    - name: Get arp results
       cisco.ios.ios_command:
         commands: show arp
       register: arp_output
 
     - name: Parse ARP table using Jinja2
-      template:
-        src: parse_arp_template.j2
-      vars:
-        arp_output: "{{ arp_output }}"
+      set_fact:
+        arpParsed: |-
+          {% for line in arp_output.stdout_lines %}
+              {% if line | regex_match('^(Internet|Protocol)') %}
+                  {% continue %}
+              {% endif %}
+              
+              {% set arp_entry = line | regex_replace('\\s+', ' ') | regex_replace('^\\s|\\s$', '') | split(' ') %}
+              
+              {% if arp_entry | length == 3 %}
+                  IP: {{ arp_entry[0] }}, MAC: {{ arp_entry[1] }}, Interface: {{ arp_entry[2] }}
+              {% endif %}
+          {% endfor %}
 
     - name: Display parsed ARP table
       debug:
-        var: arp_output.stdout_lines  
+        var: arpParsed.stdout_lines  
