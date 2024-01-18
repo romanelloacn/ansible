@@ -50,7 +50,6 @@
           {%      endif                                                                     -%}
           {%   endif                                                                        -%}
           {% endfor                                                                         -%}
-          {{ result }}
     
     - name: Display results
       debug:
