@@ -1,4 +1,4 @@
-- hosts: sw-core
+- hosts: switches
   gather_facts: no
   strategy: linear
   serial: 1000
