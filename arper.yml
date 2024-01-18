@@ -40,7 +40,7 @@
     - name: Test vars
       set_fact: 
         test: |-
-          {% set output = lookup('vars', searchIp) -%}      
+          {% set output = "lookup('vars', searchIp)" -%}      
           {{ output }} 
     
     - name: Display test
@@ -52,7 +52,7 @@
         results: |-
           {% set result = []                                                                -%}
           {% for arpRow in show_ip_arp                                                      -%}
-          {%   if arpRow.IP_ADDRESS == lookup('vars', searchIp)                             -%}
+          {%   if arpRow.IP_ADDRESS == "lookup('vars', searchIp)"                           -%}
           {%    for macRow in show_mac_table                                                -%}
           {%      if macRow.DESTINATION_ADDRESS == arpRow.MAC_ADDRESS                       -%}
           {%        set interface = macRow.DESTINATION_PORT                                 -%}
