@@ -40,7 +40,7 @@
     - name: Test vars
       set_fact: 
         test: |-
-          {% set output = {{searchIp}} -%}      
+          {% set output = lookup('vars', searchIp) -%}      
           {{ output }} 
     
     - name: Display test
