@@ -46,7 +46,7 @@
           {%    for macRow in show_mac_table                                                -%}
           {%      if macRow.DESTINATION_ADDRESS == arpRow.MAC_ADDRESS                       -%}
           {%        set interface = macRow.DESTINATION_PORT                                 -%}
-          {%        set dummy = result.append(lookup('vars', inventory_hostname) + "/" + interface )    -%}
+          {%        set dummy = result.append(inventory_hostname + "/" + interface )    -%}
           {%      endif                                                                     -%}
           {%    endfor                                                                      -%}
           {%   endif                                                                        -%}
