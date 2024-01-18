@@ -43,8 +43,7 @@
           {% set result = []                                                                -%}
           {% for arpRow in show_ip_arp                                                      -%}
           {%   if arpRow.IP_ADDRESS == searchIp                                             -%}
-          {%    for macRow in show_mac_table                                                -%}
-          mac {{macRow.DESTINATION_ADDRESS}} arp {{arpRow.MAC_ADDRESS}}
+          {%    for macRow in show_mac_table                                                -%}  
           {%      if macRow.DESTINATION_ADDRESS == arpRow.MAC_ADDRESS                    -%}
           {%        set interface = macRow.DESTINATION_PORT[0]                              -%}
           {%        set dummy = result.append(inventory_hostname + " -> " + interface )     -%}
