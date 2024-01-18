@@ -42,7 +42,7 @@
         results: |-
           {% set result = []                                                                -%}
           {% for arpRow in show_ip_arp                                                      -%}
-          {{   mdebug(arpRow.IP_ADDRESS) }}
+          {{   arpRow.IP_ADDRESS }}
           {%   if arpRow.IP_ADDRESS[0] == searchIp                                             -%}
           {%    for macRow in show_mac_table                                                -%}
           {%      if macRow.DESTINATION_ADDRESS[0] == arpRow.MAC_ADDRESS[0]                       -%}
