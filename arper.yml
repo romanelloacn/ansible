@@ -40,7 +40,8 @@
     - name: Test vars
       set_fact: 
         test: |-
-          {% lookup('vars', searchIp) -%}
+          {% set output = {{searchIp}} -%}      
+          {{ output }} 
     
     - name: Display test
       debug:
@@ -60,7 +61,7 @@
           {%    endfor                                                                      -%}
           {%   endif                                                                        -%}
           {% endfor                                                                         -%}
-           {{ result }} 
+          {{ result }} 
     
     - name: Display results
       debug:
