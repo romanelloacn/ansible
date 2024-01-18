@@ -37,6 +37,15 @@
     #  debug:
     #    var: show_mac_table
 
+    - name: Test vars
+      set_fact: 
+        test: |-
+          {% lookup('vars', searchIp) -%}
+    
+    - name: Display test
+      debug:
+        var: test
+
     - name: Find results based on searchIp variable
       set_fact:
         results: |-
