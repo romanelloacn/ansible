@@ -42,14 +42,15 @@
         results: |-
           {% set result = []                                                                -%}
           {% for arpRow in show_ip_arp                                                      -%}
-          {%   if arpRow.IP_ADDRESS == "{{searchIp}}"                                       -%}
+          {%   if arpRow.IP_ADDRESS == lookup('vars', searchIp)                             -%}
           {%    for macRow in show_mac_table                                                -%}
           {%      if macRow.DESTINATION_ADDRESS == arpRow.MAC_ADDRESS                       -%}
           {%        set interface = macRow.DESTINATION_PORT                                 -%}
-          {%        set dummy = result.append({{inventory_hostname}} + "/" + interface )    -%}
+          {%        set dummy = result.append(lookup('vars', inventory_hostname) + "/" + interface )    -%}
           {%      endif                                                                     -%}
           {%   endif                                                                        -%}
           {% endfor                                                                         -%}
+           {{ result }} 
     
     - name: Display results
       debug:
