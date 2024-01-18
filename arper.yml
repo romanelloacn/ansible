@@ -21,9 +21,9 @@
           template_path: cisco_ios_show_ip_arp.textfsm
         set_fact: show_ip_arp 
 
-    - name: Display parsed ARP table
-      debug:
-        var: show_ip_arp
+    #- name: Display parsed ARP table
+    #  debug:
+    #    var: show_ip_arp
 
     - name: Get macTable results
       ansible.utils.cli_parse:
@@ -33,6 +33,25 @@
           template_path: cisco_ios_show_mac-address-table.textfsm
         set_fact: show_mac_table 
 
-    - name: Display parsed MAC table
+    #- name: Display parsed MAC table
+    #  debug:
+    #    var: show_mac_table
+
+    - name: Find results based on searchIp variable
+      set_fact:
+        results: |-
+          {% set result = []                                                                -%}
+          {% for arpRow in show_ip_arp                                                      -%}
+          {%   if arpRow.IP_ADDRESS == "{{searchIp}}"                                       -%}
+          {%    for macRow in show_mac_table                                                -%}
+          {%      if macRow.DESTINATION_ADDRESS == arpRow.MAC_ADDRESS                       -%}
+          {%        set interface = macRow.DESTINATION_PORT                                 -%}
+          {%        set dummy = result.append({{inventory_hostname}} + "/" + interface )    -%}
+          {%      endif                                                                     -%}
+          {%   endif                                                                        -%}
+          {% endfor                                                                         -%}
+          {{ result }}
+    
+    - name: Display results
       debug:
-        var: show_mac_table
+        var: results
