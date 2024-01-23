@@ -1,4 +1,4 @@
-- hosts: '{{ selectedHost }}'
+- hosts: {{ selectedHost }}
   gather_facts: no
   strategy: linear
   serial: 1000
@@ -15,14 +15,14 @@
   tasks:
     - name: Shut interface
       block:
-        - name: Merge new vlan with current device configuration
+        - name: Shut {{ shutInterface }}
           cisco.ios.ios_command:
             commands:
               - conf t
               - int {{ shutInterface }}
               - shut
           
-        - name: Merge new vlan with current device configuration
+        - name: NoShut {{ noshutInterface }}
           cisco.ios.ios_command:
             commands:
               - conf t
