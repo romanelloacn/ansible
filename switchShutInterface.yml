@@ -1,4 +1,4 @@
-- hosts: {{ selectedHost }}
+- hosts: "{{ selectedHost }}"
   gather_facts: no
   strategy: linear
   serial: 1000
