@@ -1,0 +1,50 @@
+- hosts: switches
+  gather_facts: no
+  strategy: linear
+  serial: 1000
+
+  vars:
+    ansible_connection: ansible.netcommon.network_cli
+    ansible_network_os: cisco.ios.ios 
+    ansible_user: '{{ rhsm_username }}'
+    ansible_ssh_pass: '{{ rhsm_password }}'
+    ansible_become: yes
+    ansible_become_method: enable
+    ansible_become_password: '{{ rhsm_password }}'
+
+  tasks:
+    - name: Crate Vlan, Create SVI, assign to interface, change description
+      block:
+        - name: Merge new vlan with current device configuration
+          cisco.ios.ios_vlans:
+            config:
+              - name: Vlan_100
+                vlan_id: 100
+            state: merged
+          
+        - name: Merge l3 interface with current device configuration
+          cisco.ios.ios_l3_interfaces:
+              config:
+               - name: Vlan_100
+                 ipv4:
+                   - address: 192.168.100.1/24
+              state: replaced
+        - name: Set interface to use Vlan_100
+          cisco.ios.ios_l2_interfaces:
+            config:
+              - name: GigabitEthernet1/0/13
+                mode: access
+                access:
+                  vlan: 100
+            state: replaced 
+        - name: Rename interfaces
+          cisco.ios.ios_interfaces:
+            config:
+              - name: Gi1/0/13
+                description: Test SVI with vlans
+                enabled: true
+              - name: Gi1/0/14
+                description: Test shut
+                enabled: false
+      when: model|lower is search("c9300-24ub")
+      ignore_errors: true
