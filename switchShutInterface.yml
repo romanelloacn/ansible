@@ -27,7 +27,7 @@
             commands:
               - conf t
               - int {{ noshutInterface }}
-              - noshut
+              - no shut
 
       when: model|lower is search("c9300-24ub")
       ignore_errors: true
