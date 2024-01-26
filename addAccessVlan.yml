@@ -1,4 +1,4 @@
-- hosts: switches
+- hosts: sw-border
   gather_facts: no
   strategy: linear
   serial: 1000
